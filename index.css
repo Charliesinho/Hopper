@@ -67,11 +67,13 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
  }
+ 
  .but-enter {
     background-image: url("./Image/submit/bu1.png");
     background-size: cover;
     background-repeat: no-repeat;    
  }
+
  
  #canvas {
     margin-bottom: -75px;
