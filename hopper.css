@@ -1,0 +1,105 @@
+body {
+    padding: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .game-intro {
+    float: left;
+    padding: 0% 22%;
+    background-image: url("https://images4.alphacoders.com/966/thumb-1920-966314.jpg");
+    background-size: cover;
+    margin: auto 300px auto 300px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.418);
+  }
+  
+  .game-intro p {
+    font-size: 18px;
+    font-family: "Verdana";
+    
+  }
+  
+  .logo-img {
+    padding-top: 70px;
+    width: 450px;
+    
+  }
+  
+ #buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+    gap: 10px;
+    font-weight: bolder;
+    align-items: center;
+ }
+ input {
+    text-align: center;
+ }
+ 
+ #answer {
+    width: 60px;
+    height: 60px;
+    border-color: transparent;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 25px;
+    font-weight: bolder;
+    color: rgb(80, 57, 57);
+ }
+ #enter {
+    width: 60px;
+    height: 60px;
+    font-weight: bolder;
+    text-align: center;
+    font-size: 30px;    
+    border-color: transparent;
+    border-radius: 6px;      
+    color: rgb(80, 57, 57);
+    background-color: transparent;
+    border: none;
+    outline: none;
+ }
+ .but-answer {
+    background-image: url("./Image/Type/but1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+ }
+ .but-enter {
+    background-image: url("./Image/submit/bu1.png");
+    background-size: cover;
+    background-repeat: no-repeat;    
+ }
+ 
+ #canvas {
+    margin-bottom: -75px;
+ }
+  
+  
+  body button {
+    font-size: 30px;
+    font-weight: 900;
+    background-color: white; 
+    color: rgb(31, 31, 31);
+    padding: 20px 40px;
+    border: 0;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.418);
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  #game-board {
+    
+      float: left;
+      padding:86px 100px 140px 100px;     
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.418);
+      background-image: url("./Background.png");
+      background-size: 910px;
+      background-repeat: no-repeat;
+      background-position-y: 13px;
+      background-position-x: -55px;
+      
+  }
+  
