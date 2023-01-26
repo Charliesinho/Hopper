@@ -358,7 +358,7 @@ health = 3;
  diagShow = false;
  diagOp = 0;
 //Background 
-bgImg.src = "./Image/1st-island.png"
+
 bgIsl2.src = "./Image/2nd-island.png"
 bgIsl3.src = "./Image/3rd-island.png"
 bgIsl4.src = "./Image/4th-island.png"
