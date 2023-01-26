@@ -109,8 +109,7 @@ let diagOp = 0;
 
 //Background 
 const bgImg = new Image();
-bgImg.src = "./Image/1st-island.png"
-bgImg.alt = "hello"
+bgImg.src = "Image/1st-island.png"
 const bgIsl2 = new Image();
 bgIsl2.src = "./Image/2nd-island.png"
 const bgIsl3 = new Image();
