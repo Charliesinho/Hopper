@@ -19,20 +19,28 @@ buttonTry.onclick = () => {
     if (button.value === "3" && health > 0) {
       checkState = true;
         island2 = true   
+        correctSd.play()
+        riseSd.play()
         button.value = ""
     }
     else if (button.value === "5" && island2 === true && health > 0) {
       checkState = true;
         island3 = true   
+        correctSd.play()
+        riseSd.play()
         button.value = ""
     }
     else if (button.value === "7" && island3 === true && health > 0) {
       checkState = true;
-        island4 = true   
+        island4 = true  
+        correctSd.play() 
+        riseSd.play()
         button.value = ""
     } 
     else if (button.value === "6" && island4 === true && health > 0) {      
         gameOver = 3;  
+        correctSd.play()
+        story2Sd.play()   
         button.value = ""
     } 
     else {
@@ -41,18 +49,21 @@ buttonTry.onclick = () => {
         health = 0;
         damage =  true;
         button.value = ""
+        wrongSd.play();
       }
       if (health === 2) {
         healthImg.src = "./Image/Health/health1.png"
         health = 1;
         damage =  true;
         button.value = ""
+        wrongSd.play();
       }
       if (health === 3) {
         healthImg.src = "./Image/Health/health2.png"
         health = 2;
         damage =  true;
         button.value = ""
+        wrongSd.play();
       }      
     }
 }
@@ -141,6 +152,7 @@ const shadow = new Image();
 shadow.src = "./Image/Character/Shadow.png"
 document.querySelector('.but-enter').onmousedown = () => {
 document.querySelector('.but-enter').style.backgroundImage = "url('./Image/submit/bu2.png')"
+clickSd.play();
 }
 document.querySelector('.but-enter').onmouseup = () => {
   document.querySelector('.but-enter').style.backgroundImage = "url('./Image/submit/bu1.png')"
@@ -199,14 +211,36 @@ let stOverEnd = false
 //Game Over Restart
 let gameOverR = false;
 
+//Sounds
+const clickSd = new Audio("./Sound/click.wav")
+const story1Sd = new Audio("./Sound/Story1.mp3")
+const gameplaySd = new Audio("./Sound/gameplay.mp3")
+const correctSd = new Audio("./Sound/correct.wav")
+correctSd.volume = 0.2;
+const wrongSd = new Audio("./Sound/wrong.wav")
+wrongSd.volume = 0.4;
+const riseSd = new Audio("./Sound/Rise.wav")
+riseSd.volume = 0.04;
+const stepSd = new Audio("./Sound/steps.wav")
+stepSd.volume = 0.08;
+const story2Sd = new Audio("./Sound/Story2.mp3")
+story2Sd.volume = 0.2;
+const speakSd = new Audio("./Sound/speak.mp3")
+speakSd.volume = 0.15;
+
+//Interval Stamina
+let staminaInter;
+
+
 //Press Play
 document.querySelector('.but-play').onmousedown = function()  {
   document.querySelector('.but-play').style.backgroundImage = "url('./Image/ButtonPlay/playBut2.png')"
   playPress += 1  
+  clickSd.play();
 }
 
 document.querySelector('.but-play').onmouseup = function() {
-  gameOver += 1;
+  gameOver = 1;
   setTimeout(function(){ 
     st1check = false
     st2check = true
@@ -218,19 +252,40 @@ document.querySelector('.but-play').onmouseup = function() {
    setTimeout(function(){ 
     st3check = false
     stOver = true
+    gameplaySd.play()
    }, 38000); 
+   buttonMenu.style.display = "none";
   document.querySelector('.but-play').style.backgroundImage = "url('./Image/ButtonPlay/playBut1.png')"
   cancelAnimationFrame(animateId)
-  animateStory()
-  document.querySelector(".but-play").style.display = "none";  
-  document.querySelector(".but-skip").style.display = "none"; 
+  animateStory();
+  story1Sd.play()
+  gameplaySd.pause()
+  gameplaySd.currentTime = 0
+  gameplaySd.volume = 0.2;
+  story1Sd.volume = 0.2;
+  story2Sd.pause();
+  story2Sd.currentTime = 0;
+  numSta = 0;
+  health = 3
+  
 }
 
 document.querySelector('.but-skip').onmousedown = function()  {
-  gameOver += 1;
+  gameOver = 1;
   buttonMenu.style.display = "none";
+  gameplaySd.play()
+  gameplaySd.volume = 0.2;
   cancelAnimationFrame(animateId)
   startGame()
+  story2Sd.pause();
+  story2Sd.currentTime = 0;
+  story1Sd.pause();
+  story1Sd.currentTime = 0;
+  gameplaySd.currentTime = 0
+  gameplaySd.volume = 0.2;
+  numSta = 0;
+  health = 3
+  
 }
 
 window.onload = () => {    
@@ -238,10 +293,13 @@ window.onload = () => {
       document.querySelector(".game-intro").style.display = "none";
       document.querySelector("#game-board").style.display = 'block';      
        document.querySelector("#buttons").style.display = "none"   
+       
 }
 
 function endStory () {  
-  animateId = requestAnimationFrame(endStory) 
+  animateId = requestAnimationFrame(endStory)   
+  gameplaySd.volume = 0; 
+  
 
   ctx.globalAlpha = numEnd1;
    if (numEnd1 < 1) {
@@ -270,9 +328,9 @@ function endStory () {
     ctx.drawImage(storyEnd3, 0, 0, 600, 600);
     ctx.globalAlpha = 1;
 
-    if (stOverEnd === true) {                
+    if (stOverEnd === true) {                     
       buttonMenu.style.display = "block";
-      gameOver = 0
+      gameOver = 0      
       buttonPlay.src = './Image/play.png'
       playPress = 0    
       playTitle.src = './Image/Title.png'     
@@ -374,14 +432,14 @@ storyEnd3.src = "./Image/Story/endSt3.png"
 
  stOverEnd = false
 
-      cancelAnimationFrame(animateId);
+      cancelAnimationFrame(animateId); 
       buttonMenu.style.display = "block";
       animateMenu() 
     }
 }
 
 function animateStory () {
-  ctx.clearRect(0, 0, bgWidth, bgWidth);
+  
   animateId = requestAnimationFrame(animateStory) 
 
   ctx.globalAlpha = numSt1;
@@ -412,42 +470,52 @@ function animateStory () {
     ctx.globalAlpha = 1;
 
     if (stOver) {
+      stOver = false
+      story1Sd.pause();
+      story1Sd.currentTime = 0;
       cancelAnimationFrame(animateId)
       startGame()
     }
 }
 
 function animateMenu () {
+    if (numSta > 0) {
+    numSta = 0;
+  }
+  animateId = requestAnimationFrame(animateMenu)   
+  buttonMenu.style.display = "block";  
   ctx.clearRect(0, 0, bgWidth, bgWidth);
-  animateId = requestAnimationFrame(animateMenu) 
+  ctx.drawImage(playTitle, 50, -25, 500, 300); 
   if(playPress === 0) {
   ctx.drawImage(buttonPlay, 160, 300, 300, 200);  
   } else if (playPress === 1) {
-    ctx.drawImage(buttonPlay, 160, 320, 300, 200);
-  }
-  ctx.drawImage(playTitle, 30, 30, 550, 260);  
+  ctx.drawImage(buttonPlay, 160, 320, 300, 200);
+  }   
   ctx.drawImage(buttonSkip, 185, 505, 240, 80);  
   
 }
 
 function animateOver () {
-  animateId = requestAnimationFrame(animateOver) 
- console.log(gameOver)
-  ctx.globalAlpha = numOver;
+  animateId = requestAnimationFrame(animateOver)   
+   ctx.globalAlpha = numOver;
    if (numOver < 1) {
    if (gameOver === 2) {    
     if (animateId % 10 === 0) {
       numOver += 0.1;        
     }}} 
-    ctx.drawImage(gameOverScr, 10, 10, 580, 580);  
+    ctx.drawImage(gameOverScr, -50, -15, 700, 700);  
 
     document.querySelector("#buttons").style.display = "none" 
     
     if (gameOverR === true) {            
+      buttonMenu.style.display = "block";
       gameOver = 0      
-      playPress = 0            
+      buttonPlay.src = './Image/play.png'
+      playPress = 0    
+      playTitle.src = './Image/Title.png'     
+      buttonSkip.src = './Image/ButtonPlay/skipstory.png'     
+      skipTitle.src = './Image/ButtonPlay/Skip.png'
       gameOverR = false;
-      console.log("hey")
 //Boat
   imgBoat = 1;
 //Frame
@@ -533,7 +601,10 @@ CharIdle.src = "./Image/Character/CharIdle/idle0.png"
 }
 
 function animate () {    
-    //ctx.clearRect(0, 0, bgWidth, bgWidth);
+     //ctx.clearRect(0, 0, bgWidth, bgWidth);    
+      story1Sd.volume = 0;
+    
+
     document.querySelector("#buttons").style.display = "flex"   
     ctx.drawImage(bgImg, bgXpos, bgYpos, bgWidth, bgHeight);
 
@@ -543,8 +614,7 @@ function animate () {
         imgBoat += 1;
         if (imgBoat > 4) {
             imgBoat = 1;
-        }
-        
+        }        
     }
     boatImg.src = "./Image/BoatSpr/Boat" + imgBoat + ".png"
 
@@ -563,7 +633,7 @@ function animate () {
     if (island3 === true) {    
      if (animateId % 5 === 0) {
          isl3Op += 0.1;        
-     }}} 
+     }}}
      ctx.drawImage(bgIsl3, bgXpos, bgYpos, bgWidth, bgHeight);
 
      //Island 4
@@ -591,6 +661,7 @@ function animate () {
         }        
     }
     imgTotem.src = "./Image/Totem/tot" + numTotem + ".png"
+    
 
     //Chest
     ctx.globalAlpha = isl4Op;
@@ -817,6 +888,9 @@ function animate () {
       }
       diagImg.src = "./Image/Dialog/diag" + diagNum + ".png"
       ctx.globalAlpha = 1;
+      speakSd.pause()
+      speakSd.currentTime = 0
+      speakSd.loop = true
     }
     if (diagShow === true) {
     ctx.globalAlpha = diagOp;
@@ -830,6 +904,8 @@ function animate () {
            
             diagOp += 0.3;        
            } 
+           speakSd.play()
+           speakSd.loop = false
     }
     diagImg.src = "./Image/Dialog/diag" + diagNum + ".png"
     ctx.globalAlpha = 1;
@@ -856,19 +932,27 @@ function animate () {
   if (numSta === 8 || health === 0) {
     gameOver = 2;
   }
-      
+      console.log(numSta)
   //Game Over
       if(gameOver === 1){
         animateId = requestAnimationFrame(animate)
       } else if(gameOver === 2 && gameOverR === false){
-        setInterval(function(){ 
-          gameOverR = true;
-          console.log("hey")
+        cancelAnimationFrame(animateId)    
+        clearInterval(staminaInter)
+        numOver = 0;
+        staminaInter = null;
+        animateId = 0
+        animateOver()            
+        gameplaySd.pause();
+        gameplaySd.currentTime = 0;
+        setTimeout(function(){ 
+          gameOverR = true;          
          }, 10000); 
-        cancelAnimationFrame(animateId)
-        animateOver()        
       } else if (gameOver === 3) {
         cancelAnimationFrame(animateId)
+        clearInterval(staminaInter)
+        numOver = 0;
+        staminaInter = null;
         endStory()
         end1check = true
         document.querySelector("#buttons").style.display = "none"  
@@ -890,33 +974,40 @@ function animate () {
     
 function startGame() {
   animate()   
-  
-setInterval(function(){ 
-  if (numSta < 8) {
-  numSta += 1;
-  }
- }, 15000); 
+  staminaInter  = setInterval(function(){ 
+    if (numSta < 8) {
+    numSta += 1;
+    }
+   }, 15000); 
 
 }
 
-document.addEventListener('keydown', event => {
-    if (event.key === 'a') {       
+document.addEventListener('keydown', event => {  
+    if (event.key === 'a') { 
+      stepSd.play()
+  stepSd.loop = true      
       isMovingLeft = true  
       isNotMoving = false;  
       wasRight = 0;
       wasLeft = 1;                
     }
-    if (event.key === 'd') {       
+    if (event.key === 'd') {     
+      stepSd.play()
+  stepSd.loop = true  
       isMovingRight = true    
       isNotMoving = false; 
       wasRight = 1;
       wasLeft = 0;      
     }
-    if (event.key === 'w') {       
+    if (event.key === 'w') {    
+      stepSd.play()
+  stepSd.loop = true   
         isMovingUp = true
         isNotMoving = false; 
     }
-    if (event.key === 's') {      
+    if (event.key === 's') {   
+      stepSd.play()
+  stepSd.loop = true   
         isMovingDown = true   
         isNotMoving = false;               
     }    
@@ -924,7 +1015,9 @@ document.addEventListener('keydown', event => {
       gameOver = 2;               
   }         
 })
-document.addEventListener('keyup', () => {     
+document.addEventListener('keyup', () => {   
+  
+  stepSd.loop = false
     isMovingLeft = false
     isMovingRight = false
     isMovingUp = false
