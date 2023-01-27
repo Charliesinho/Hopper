@@ -224,7 +224,7 @@ stepSd.volume = 0.08;
 const story2Sd = new Audio("./Sound/Story2.mp3")
 story2Sd.volume = 0.2;
 const speakSd = new Audio("./Sound/speak.mp3")
-speakSd.volume = 0.15;
+speakSd.volume = 0.25;
 const menuSd = new Audio("./Sound/menu.wav")
 menuSd.volume = 0.15;
 
