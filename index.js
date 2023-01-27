@@ -4,6 +4,7 @@ document.querySelector(".game-intro").style.display = "none";
 
 myCanvas.style.border;
 
+//Game Over
 let gameOver = 0
 let animateId;
 
@@ -14,23 +15,22 @@ let numOver = 0;
 //Input
 let button = document.querySelector("#answer");
 let buttonTry = document.querySelector("#enter");
-
 buttonTry.onclick = () => {
-    if (button.value === "3" && health > 0) {
+    if (button.value === "3" && island2 === false && health > 0) {
       checkState = true;
         island2 = true   
         correctSd.play()
         riseSd.play()
         button.value = ""
     }
-    else if (button.value === "5" && island2 === true && health > 0) {
+    else if (button.value === "5" && island2 === true && island3 === false && health > 0) {
       checkState = true;
         island3 = true   
         correctSd.play()
         riseSd.play()
         button.value = ""
     }
-    else if (button.value === "7" && island3 === true && health > 0) {
+    else if (button.value === "7" && island3 === true && island4 === false && health > 0) {
       checkState = true;
         island4 = true  
         correctSd.play() 
@@ -116,12 +116,10 @@ const bgIsl3 = new Image();
 bgIsl3.src = "./Image/3rd-island.png"
 const bgIsl4 = new Image();
 bgIsl4.src = "./Image/4th-island.png"
-
 let island1 = true;
 let island2 = false;
 let island3 = false;
 let island4 = false;
-
 const bgWidth = 1400;
 const bgHeight = bgWidth / 1.166666666666667;
 let bgXpos = -58;
@@ -130,7 +128,6 @@ let bgOp = 0.1;
 let isl2Op = 0;
 let isl3Op = 0;
 let isl4Op = 0;
-
 let isMovingRight = false;
 let isMovingLeft = false;
 let isMovingUp = false;
@@ -147,16 +144,17 @@ let xLimit = 140;
 let wasRight = 0;
 let wasLeft = 0;
 let damage = false;
-
 const shadow = new Image();
 shadow.src = "./Image/Character/Shadow.png"
+
+//Gameplay Buttons
 document.querySelector('.but-enter').onmousedown = () => {
 document.querySelector('.but-enter').style.backgroundImage = "url('./Image/submit/bu2.png')"
 clickSd.play();
 }
 document.querySelector('.but-enter').onmouseup = () => {
   document.querySelector('.but-enter').style.backgroundImage = "url('./Image/submit/bu1.png')"
-  }
+}
 
 //Menu intro
 let buttonMenu = document.querySelector("#buttons-menu");
@@ -238,7 +236,6 @@ document.querySelector('.but-play').onmousedown = function()  {
   playPress += 1  
   clickSd.play();
 }
-
 document.querySelector('.but-play').onmouseup = function() {
   gameOver = 1;
   setTimeout(function(){ 
@@ -269,7 +266,6 @@ document.querySelector('.but-play').onmouseup = function() {
   health = 3
   
 }
-
 document.querySelector('.but-skip').onmousedown = function()  {
   gameOver = 1;
   buttonMenu.style.display = "none";
@@ -288,6 +284,7 @@ document.querySelector('.but-skip').onmousedown = function()  {
   
 }
 
+//On load
 window.onload = () => {    
       animateMenu();          
       document.querySelector(".game-intro").style.display = "none";
@@ -296,12 +293,13 @@ window.onload = () => {
        
 }
 
-function endStory () {  
+//Animators
+function endStory     () {
   animateId = requestAnimationFrame(endStory)   
   gameplaySd.volume = 0; 
   
 
-  ctx.globalAlpha = numEnd1;
+   ctx.globalAlpha = numEnd1;
    if (numEnd1 < 1) {
    if (end1check === true) {    
     if (animateId % 1 === 0) {
@@ -437,7 +435,6 @@ storyEnd3.src = "./Image/Story/endSt3.png"
       animateMenu() 
     }
 }
-
 function animateStory () {
   
   animateId = requestAnimationFrame(animateStory) 
@@ -477,8 +474,7 @@ function animateStory () {
       startGame()
     }
 }
-
-function animateMenu () {
+function animateMenu  () {
     if (numSta > 0) {
     numSta = 0;
   }
@@ -494,8 +490,7 @@ function animateMenu () {
   ctx.drawImage(buttonSkip, 185, 505, 240, 80);  
   
 }
-
-function animateOver () {
+function animateOver  () {
   animateId = requestAnimationFrame(animateOver)   
    ctx.globalAlpha = numOver;
    if (numOver < 1) {
@@ -503,9 +498,9 @@ function animateOver () {
     if (animateId % 10 === 0) {
       numOver += 0.1;        
     }}} 
-    ctx.drawImage(gameOverScr, -50, -15, 700, 700);  
+  ctx.drawImage(gameOverScr, -50, -15, 700, 700);  
 
-    document.querySelector("#buttons").style.display = "none" 
+  document.querySelector("#buttons").style.display = "none" 
     
     if (gameOverR === true) {            
       buttonMenu.style.display = "block";
@@ -599,10 +594,9 @@ CharIdle.src = "./Image/Character/CharIdle/idle0.png"
     }
     
 }
-
-function animate () {    
-     //ctx.clearRect(0, 0, bgWidth, bgWidth);    
-      story1Sd.volume = 0;
+function animate      () {
+    //ctx.clearRect(0, 0, bgWidth, bgWidth);    
+    story1Sd.volume = 0;
     
 
     document.querySelector("#buttons").style.display = "flex"   
@@ -619,8 +613,8 @@ function animate () {
     boatImg.src = "./Image/BoatSpr/Boat" + imgBoat + ".png"
 
    //Island 2
-   ctx.globalAlpha = isl2Op;
-   if (isl2Op < 1) {
+    ctx.globalAlpha = isl2Op;
+    if (isl2Op < 1) {
    if (island2 === true) {    
     if (animateId % 5 === 0) {
         isl2Op += 0.1;        
@@ -633,8 +627,8 @@ function animate () {
     if (island3 === true) {    
      if (animateId % 5 === 0) {
          isl3Op += 0.1;        
-     }}}
-     ctx.drawImage(bgIsl3, bgXpos, bgYpos, bgWidth, bgHeight);
+    }}}
+    ctx.drawImage(bgIsl3, bgXpos, bgYpos, bgWidth, bgHeight);
 
      //Island 4
     ctx.globalAlpha = isl4Op;
@@ -642,8 +636,8 @@ function animate () {
     if (island4 === true) {    
      if (animateId % 5 === 0) {
          isl4Op += 0.1;        
-     }}} 
-     ctx.drawImage(bgIsl4, bgXpos, bgYpos, bgWidth, bgHeight);
+    }}} 
+    ctx.drawImage(bgIsl4, bgXpos, bgYpos, bgWidth, bgHeight);
     ctx.globalAlpha = 1;
 
     //Totems
@@ -652,7 +646,7 @@ function animate () {
     if (island4 === true) {    
      if (animateId % 5 === 0) {
          isl3Op += 0.1;        
-     }}} 
+    }}} 
     ctx.drawImage(imgTotem, bgXpos, bgYpos+90, bgWidth, bgHeight);
     if (animateId % 12 === 0) {        
         numTotem += 1;
@@ -662,14 +656,13 @@ function animate () {
     }
     imgTotem.src = "./Image/Totem/tot" + numTotem + ".png"
     
-
     //Chest
     ctx.globalAlpha = isl4Op;
     if (isl4Op < 1) {
     if (island4 === true) {    
      if (animateId % 5 === 0) {
          isl4Op += 0.1;        
-     }}} 
+    }}} 
     ctx.drawImage(imgChest, bgXpos, bgYpos+79, bgWidth, bgHeight);
     if (animateId % 12 === 0) {        
       numChest += 1;
@@ -680,12 +673,10 @@ function animate () {
     }
     imgChest.src = "./Image/Chest/chest" + numChest + ".png"
 
-
     // Character
     ctx.globalAlpha = .5;
     ctx.drawImage(shadow, 298.5, 285, 40, 40);
     ctx.globalAlpha = 1;
-
 
     if (isNotMoving && wasRight === 0 && wasLeft === 0) {
       ctx.drawImage(CharIdle, 300, 285, 40, 40);
@@ -823,8 +814,6 @@ function animate () {
             CharIdle.src = "./Image/Character/CharDmgL/dmg" + imgCharDmg + ".png"
           }
 
-    
-
     if (island2 === true && island3 === false) {
         xLimit = 325;
     }  
@@ -835,21 +824,21 @@ function animate () {
         xLimit = 715;
     }  
 
-      if (isMovingLeft && bgXpos < 20) {
+    if (isMovingLeft && bgXpos < 20) {
         bgXpos += 1.2;
-      }
-      else if (isMovingRight && bgXpos > -xLimit) {
+    }
+    else if (isMovingRight && bgXpos > -xLimit) {
         bgXpos -= 1.2;
-      } 
-      else if (isMovingUp && bgYpos < -240) {
+    } 
+    else if (isMovingUp && bgYpos < -240) {
         bgYpos += 1;
-      }
-      else if (isMovingDown && bgYpos > -275) {
+    }
+    else if (isMovingDown && bgYpos > -275) {
         bgYpos -= 1;
-      }
+    }
 
-     //Check
-      if (checkState === true) {        
+    //Check
+    if (checkState === true) {        
           ctx.drawImage(imgCheck, 350, 510, 75, 75);
           if (animateId % 3 === 0) {        
             numCheck += 1;
@@ -860,17 +849,15 @@ function animate () {
               
           }
           imgCheck.src = "./Image/Check/check" + numCheck + ".png"
-          }
+    }
 
    //Dialog    
-    
     if (bgXpos < -365 && bgXpos > -395 && bgYpos < -265) {
       diagShow = true;
     }
     else {
       diagShow = false;      
     }
-    
     if (diagShow === false) {
       ctx.globalAlpha = diagOp;
       ctx.drawImage(diagImg, 120, 400, 350, 350);
@@ -909,7 +896,7 @@ function animate () {
     }
     diagImg.src = "./Image/Dialog/diag" + diagNum + ".png"
     ctx.globalAlpha = 1;
-  }
+    }
 
   //Frame
   ctx.drawImage(imgFrame, 12, 15, 100, 100);
@@ -932,11 +919,12 @@ function animate () {
   if (numSta === 8 || health === 0) {
     gameOver = 2;
   }
-      console.log(numSta)
+  
   //Game Over
-      if(gameOver === 1){
+  if(gameOver === 1){
         animateId = requestAnimationFrame(animate)
-      } else if(gameOver === 2 && gameOverR === false){
+  } 
+  else if(gameOver === 2 && gameOverR === false){
         cancelAnimationFrame(animateId)    
         clearInterval(staminaInter)
         numOver = 0;
@@ -948,7 +936,8 @@ function animate () {
         setTimeout(function(){ 
           gameOverR = true;          
          }, 10000); 
-      } else if (gameOver === 3) {
+  } 
+  else if (gameOver === 3) {
         cancelAnimationFrame(animateId)
         clearInterval(staminaInter)
         numOver = 0;
@@ -968,11 +957,10 @@ function animate () {
           end3check = false
           stOverEnd = true
          }, 38000); 
-      }
+  }
 
-};
-    
-function startGame() {
+}  
+function startGame    () {
   animate()   
   staminaInter  = setInterval(function(){ 
     if (numSta < 8) {
@@ -982,6 +970,7 @@ function startGame() {
 
 }
 
+//Keys
 document.addEventListener('keydown', event => {  
     if (event.key === 'a') { 
       stepSd.play()
