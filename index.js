@@ -212,7 +212,7 @@ let gameOverR = false;
 //Sounds
 const clickSd = new Audio("./Sound/click.wav")
 const story1Sd = new Audio("./Sound/Story1.mp3")
-const gameplaySd = new Audio("./Sound/gameplay.mp3")
+const gameplaySd = new Audio("./Sound/gameplay.wav")
 const correctSd = new Audio("./Sound/correct.wav")
 correctSd.volume = 0.2;
 const wrongSd = new Audio("./Sound/wrong.wav")
@@ -225,7 +225,12 @@ const story2Sd = new Audio("./Sound/Story2.mp3")
 story2Sd.volume = 0.2;
 const speakSd = new Audio("./Sound/speak.mp3")
 speakSd.volume = 0.15;
+const menuSd = new Audio("./Sound/menu.wav")
+menuSd.volume = 0.15;
 
+//Instructions
+inst = document.querySelector(".inst")
+inst.style.display = "none"
 //Interval Stamina
 let staminaInter;
 
@@ -258,7 +263,7 @@ document.querySelector('.but-play').onmouseup = function() {
   story1Sd.play()
   gameplaySd.pause()
   gameplaySd.currentTime = 0
-  gameplaySd.volume = 0.2;
+  gameplaySd.volume = 0.05;
   story1Sd.volume = 0.2;
   story2Sd.pause();
   story2Sd.currentTime = 0;
@@ -268,6 +273,7 @@ document.querySelector('.but-play').onmouseup = function() {
 }
 document.querySelector('.but-skip').onmousedown = function()  {
   gameOver = 1;
+  inst.style.display = "flex"
   buttonMenu.style.display = "none";
   gameplaySd.play()
   gameplaySd.volume = 0.2;
@@ -297,6 +303,7 @@ window.onload = () => {
 function endStory     () {
   animateId = requestAnimationFrame(endStory)   
   gameplaySd.volume = 0; 
+  inst.style.display = "none"
   
 
    ctx.globalAlpha = numEnd1;
@@ -469,6 +476,7 @@ function animateStory () {
     if (stOver) {
       stOver = false
       story1Sd.pause();
+      inst.style.display = "flex"
       story1Sd.currentTime = 0;
       cancelAnimationFrame(animateId)
       startGame()
@@ -480,6 +488,7 @@ function animateMenu  () {
   }
   animateId = requestAnimationFrame(animateMenu)   
   buttonMenu.style.display = "block";  
+  inst.style.display = "none"
   ctx.clearRect(0, 0, bgWidth, bgWidth);
   ctx.drawImage(playTitle, 50, -25, 500, 300); 
   if(playPress === 0) {
@@ -491,7 +500,8 @@ function animateMenu  () {
   
 }
 function animateOver  () {
-  animateId = requestAnimationFrame(animateOver)   
+  animateId = requestAnimationFrame(animateOver)  
+  inst.style.display = "none" 
    ctx.globalAlpha = numOver;
    if (numOver < 1) {
    if (gameOver === 2) {    

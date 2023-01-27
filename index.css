@@ -20,6 +20,12 @@ body {
     
   }
   
+  .inst {
+   width: 500px;
+   padding-top: 80px;
+   padding-left: 60px;
+  }
+
   .but-play{
    margin-top: -200px;
    margin-bottom: 50px;
