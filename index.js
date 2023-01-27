@@ -284,7 +284,7 @@ document.querySelector('.but-skip').onmousedown = function()  {
   story1Sd.pause();
   story1Sd.currentTime = 0;
   gameplaySd.currentTime = 0
-  gameplaySd.volume = 0.2;
+  gameplaySd.volume = 0.1;
   numSta = 0;
   health = 3
   
